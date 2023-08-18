@@ -37,8 +37,8 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        if (currentUser != null) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -59,7 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -75,38 +75,37 @@ public class RegistrationActivity extends AppCompatActivity {
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf((editTextPassword.getText()));
 
-                if (TextUtils.isEmpty(email)){
-                   Toast.makeText(RegistrationActivity.this,"enter email",Toast.LENGTH_SHORT).show();
-                   return;
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(RegistrationActivity.this, "enter email", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
-                if (TextUtils.isEmpty(password)){
-                    Toast.makeText(RegistrationActivity.this,"enter password",Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(RegistrationActivity.this, "enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
 
-                ((FirebaseAuth) mAuth).createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
+                ((FirebaseAuth) mAuth).createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressBar.setVisibility(View.GONE);
+                        if (task.isSuccessful()) {
 
-                                    Toast.makeText(RegistrationActivity.this, " account created", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                            Toast.makeText(RegistrationActivity.this, " account created", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                            finish();
 
 
-                                } else {
-                                    // If sign in fails, display a message to the user.
+                        } else {
+                            // If sign in fails, display a message to the user.
 
-                                    Toast.makeText(RegistrationActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
-                                }
-                            }
-                        });
+                        }
+                    }
+                });
 
             }
         });
